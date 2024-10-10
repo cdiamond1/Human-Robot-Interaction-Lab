@@ -132,8 +132,9 @@ while True:
                     # After exiting the loop, look at the person before speaking
                     look_at_person()
                 else:
+                    print("len new responce: " + len(response) + " len prev responce: " + len(prevResponce))
+                    # Check if it's time to look away or look back
                     print("Speaking")
-                    response = read_response()
                     animated_speech.say(response.encode('utf-8'))
                     print("Assistant: " + response)
                     prevResponce = response
