@@ -74,11 +74,22 @@ def set_turn(turn):
 
 def listen_and_transcribe(mic_index):
     with sr.Microphone(device_index=mic_index) as source:
-        r.adjust_for_ambient_noise(source)
+        r.adjust_for_ambient_noise(source)  # Adjust for background noise
         print("Listening...")
-        audio = r.listen(source)
+
+        # Set longer durations to avoid cutting people off
+        audio = r.listen(source, timeout=None, phrase_time_limit=5)  # Adjust phrase_time_limit as needed
+
         print("Processing...")
-        return r.recognize_google(audio)
+        try:
+            return r.recognize_google(audio)  # You can handle specific exceptions here if needed
+        except sr.UnknownValueError:
+            print("Google Speech Recognition could not understand the audio")
+            return None
+        except sr.RequestError as e:
+            print(f"Could not request results from Google Speech Recognition service; {e}")
+            return None
+
 
 def get_ai_response(chat_history):
     completion = client.chat.completions.create(
@@ -118,7 +129,7 @@ def conversation_loop(mic_index):
                 chat_history.append({"role": "assistant", "content": response})
                 save_chat_history(chat_history)
                 save_response(response)
-                time.sleep(4)
+                time.sleep(3)
             except Exception as e:
                 print(f"An error occurred while getting AI response: {e}")
                 time.sleep(1)

@@ -158,11 +158,11 @@ while True:
 
                 # Reset for the next interaction
                 set_turn("listen")
-                
-                time.sleep(1)
 
-                # Clear the response file after speaking
-                clear_response_file()
+                time.sleep(5)
+                if is_response_ready():
+                    clear_response_file()
+
 
             time.sleep(0.1)
     except Exception as e:
