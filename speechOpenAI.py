@@ -118,9 +118,6 @@ def conversation_loop(mic_index):
                 chat_history.append({"role": "assistant", "content": response})
                 save_chat_history(chat_history)
                 save_response(response)
-                #print("Changing to listen")
-                #set_turn(Turn.LISTEN)
-                #print(get_turn())
             except Exception as e:
                 print(f"An error occurred while getting AI response: {e}")
                 time.sleep(1)
