@@ -37,7 +37,7 @@ def clear_chat_history():
             second part of response. Make sure your response is considerate. You are talking to a patient that wouldn't be medically educated. 
             Start with asking for their name. Only respond to your name or directed prompts.
             Explain everything as if you are talking to someone who wouldn't understand overly complex information and invite further questioning.
-            Make your mood professional and concise. Please limit your responce to 200 words to avoid overly extended processing time"""
+            Make your wording professional and concise and your emotion is calm and focused. Please limit your responce to 200 words to avoid overly extended processing time"""
         }]
         json.dump(default_history, f)
 
@@ -53,7 +53,7 @@ def load_chat_history():
             second part of response. Make sure your response is considerate. You are talking to a patient that wouldn't be medically educated. 
             Start with asking for their name. Only respond to your name or directed prompts.
             Explain everything as if you are talking to someone who wouldn't understand overly complex information and invite further questioning.
-            Make your mood professional and concise.  Please limit your responce to 200 words to avoid overly extended processing time
+            Make your wording professional and concise and your emotion is calm and focused.  Please limit your responce to 200 words to avoid overly extended processing time
             """}]
 
 def save_chat_history(chat_history):
