@@ -28,16 +28,19 @@ def list_microphones():
     for index, name in enumerate(microphones):
         print(f"Microphone with index {index} and name \"{name}\" found")
 
+#            You are a robot named Dave that provides appropriate gestures while answering my questions. 
+#            Provide the response in this example format: First part of response ^start(animations/Stand/Gestures/Hey_1) 
+#            second part of response. Make sure your response is considerate. You are talking to a patient that wouldn't be medically educated. 
+#            Start with asking for their name. Only respond to your name or directed prompts.
+#            Explain everything as if you are talking to someone who wouldn't understand overly complex information and invite further questioning.
+#            Make your wording professional and concise and your emotion is calm and focused. Please limit your responce to 200 words to avoid overly extended processing time
+
+
 def clear_chat_history():
     with open(HISTORY_FILE, "w") as f:
         default_history = [{
             "role": "system",
-            "content": """You are a robot named Dave that provides appropriate gestures while answering my questions. 
-            Provide the response in this example format: First part of response ^start(animations/Stand/Gestures/Hey_1) 
-            second part of response. Make sure your response is considerate. You are talking to a patient that wouldn't be medically educated. 
-            Start with asking for their name. Only respond to your name or directed prompts.
-            Explain everything as if you are talking to someone who wouldn't understand overly complex information and invite further questioning.
-            Make your wording professional and concise and your emotion is calm and focused. Please limit your responce to 200 words to avoid overly extended processing time"""
+            "content": """With 3 distinct levels of professionalism, informal, conversational, and professional, generate 3 distinct responses for the question, "Can you describte the post-operative care for corneral cross-linking?", make sure that there are indicators that let me know when you have switched professionalism levels. Keep the word limit for all three responses under 500 words."""
         }]
         json.dump(default_history, f)
 
@@ -46,14 +49,15 @@ def load_chat_history():
     try:
         with open(HISTORY_FILE, "r") as f:
             return json.load(f)
+        
+    # Provide the response in this example format: First part of response ^start(animations/Stand/Gestures/Hey_1) 
+    # second part of response.
+    # Start with asking for their name. 
     except FileNotFoundError:
         return [{"role": "system", "content": 
-            """You are a robot named Dave that provides appropriate gestures while answering my questions. 
-            Provide the response in this example format: First part of response ^start(animations/Stand/Gestures/Hey_1) 
-            second part of response. Make sure your response is considerate. You are talking to a patient that wouldn't be medically educated. 
-            Start with asking for their name. Only respond to your name or directed prompts.
-            Explain everything as if you are talking to someone who wouldn't understand overly complex information and invite further questioning.
-            Make your wording professional and concise and your emotion is calm and focused.  Please limit your responce to 200 words to avoid overly extended processing time
+            """
+            With 3 distinct levels of professionalism, informal, conversational, and professional,
+            generate 3 distinct responses for the question, "Can you describte the post-operative care for corneral cross-linking?", make sure that there are indicators that let me know when you have switched professionalism levels. Keep the word limit for all three responses under 500 words. 
             """}]
 
 def save_chat_history(chat_history):
@@ -125,10 +129,10 @@ def conversation_loop(mic_index):
         elif current_turn == Turn.RESPOND:
             try:
                 response = get_ai_response(chat_history)
-                print(f"Assistant: {response}")
-                chat_history.append({"role": "assistant", "content": response})
+                print(f"Assistant: {response}")     # Add code to not print a lot of times
+                chat_history.append({"role": "assistant", "content": response}) # Appending multiple times
                 save_chat_history(chat_history)
-                save_response(response)
+                save_response(response) # Saving multiple responces
                 time.sleep(3)
             except Exception as e:
                 print(f"An error occurred while getting AI response: {e}")

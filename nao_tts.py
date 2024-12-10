@@ -8,7 +8,7 @@ import os
 import random
 
 # Constants
-ip = "10.60.63.63"
+ip = "10.60.11.4"
 port = 9559
 CONTROL_FILE = "control.json"
 RESPONSE_FILE = "response.txt"
