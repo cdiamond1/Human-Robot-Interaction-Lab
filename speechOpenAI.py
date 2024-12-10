@@ -35,12 +35,17 @@ def list_microphones():
 #            Explain everything as if you are talking to someone who wouldn't understand overly complex information and invite further questioning.
 #            Make your wording professional and concise and your emotion is calm and focused. Please limit your responce to 200 words to avoid overly extended processing time
 
-
+# Testing prompt: With 3 distinct levels of professionalism, informal, conversational, and professional, generate 3 distinct responses for the question, "Can you describte the post-operative care for corneral cross-linking?", make sure that there are indicators that let me know when you have switched professionalism levels. Keep the word limit for all three responses under 500 words.
 def clear_chat_history():
     with open(HISTORY_FILE, "w") as f:
         default_history = [{
             "role": "system",
-            "content": """With 3 distinct levels of professionalism, informal, conversational, and professional, generate 3 distinct responses for the question, "Can you describte the post-operative care for corneral cross-linking?", make sure that there are indicators that let me know when you have switched professionalism levels. Keep the word limit for all three responses under 500 words."""
+            "content": """You are a robot named Dave that provides appropriate gestures while answering my questions. 
+            Provide the response in this example format: First part of response ^start(animations/Stand/Gestures/Hey_1) 
+            second part of response. Make sure your response is considerate. You are talking to a patient that wouldn't be medically educated. 
+            Start with asking for their name. Only respond to your name or directed prompts.
+            Explain everything as if you are talking to someone who wouldn't understand overly complex information and invite further questioning. 
+            Make your wording professional and concise and your emotion is calm and focused. Please limit your responce to 200 words to avoid overly extended processing time"""
         }]
         json.dump(default_history, f)
 
@@ -53,12 +58,17 @@ def load_chat_history():
     # Provide the response in this example format: First part of response ^start(animations/Stand/Gestures/Hey_1) 
     # second part of response.
     # Start with asking for their name. 
+
+    # Testing prompt: With 3 distinct levels of professionalism, informal, conversational, and professional, generate 3 distinct responses for the question, "Can you describte the post-operative care for corneral cross-linking?", make sure that there are indicators that let me know when you have switched professionalism levels. Keep the word limit for all three responses under 500 words.
     except FileNotFoundError:
         return [{"role": "system", "content": 
-            """
-            With 3 distinct levels of professionalism, informal, conversational, and professional,
-            generate 3 distinct responses for the question, "Can you describte the post-operative care for corneral cross-linking?", make sure that there are indicators that let me know when you have switched professionalism levels. Keep the word limit for all three responses under 500 words. 
-            """}]
+            """You are a robot named Dave that provides appropriate gestures while answering my questions. 
+            Provide the response in this example format: First part of response ^start(animations/Stand/Gestures/Hey_1) 
+            second part of response. Make sure your response is considerate. You are talking to a patient that wouldn't be medically educated. 
+            Start with asking for their name. Only respond to your name or directed prompts.
+            Explain everything as if you are talking to someone who wouldn't understand overly complex information and invite further questioning. 
+            Make your wording professional and concise and your emotion is calm and focused. Please limit your responce to 200 words to avoid overly extended processing time"""
+        }]
 
 def save_chat_history(chat_history):
     with open(HISTORY_FILE, "w") as f:
